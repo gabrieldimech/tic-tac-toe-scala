@@ -2,9 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project status
+## Commands
 
-This directory contains no code yet, and it isn't a git repository. There are no build, lint, or test commands to document so far. Add them here, along with a high-level architecture overview, once the project has been set up.
+- `sbt run`, or `sbt "run --vs-ai"` to play the computer.
+- `sbt test`; one suite with `sbt "testOnly tictactoe.domain.MinimaxSuite"`.
+- `sbt scalafmtSbtCheck scalafmtCheckAll test` is the full check: formatting, then all tests.
+
+## Architecture
+
+Four layers under `src/main/scala/tictactoe`, with dependencies pointing inwards:
+`domain` (pure rules, no imports) ← `input` (parsing) ← `app` (game loop,
+the `Console[F]` and `MoveSource[F]` algebras, rendering) ← `interpreters`.
+`Main` wires them together. See `README.md` and `docs/DESIGN.md`.
 
 # Tic-Tac-Toe in Scala — working rules
 
